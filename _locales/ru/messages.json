@@ -1,80 +1,80 @@
 {
-   "desc":{
-      "message": "Устали от чтения? Выделите необходимый Вам текст и прослушайте его с помощью SpeakIt!"
+   "contx_info": {
+      "message": "Перезапустите браузер для сохранения внесенных изменений."
    },
-   "title":{
-      "message": "Конвертирует текст в речь"
-   },
-   "lang_options": {
-      "message": "SpeakIt! - Настройки"
-   },
-   "lang_playback": {
-      "message": "Настройка Воспроизведения"
-   },
-   "lang_volume": {
-      "message": "Уровень громкости"
-   },
-   "lang_shortcuts": {
-      "message": "Настройка Горячих Клавиш"
-   },
-   "lang_keyboard": {
-      "message": "Горячая Клавиша:"
+   "desc": {
+      "message": "Устали от чтения? SpeakIt сконвертирует данный текст в речь и Вам не придется его читать."
    },
    "lang_contex": {
       "message": "Показывать SpeakIt в контекстном меню."
    },
-   "contx_info": {
-      "message": "Перезапустите браузер для сохранения внесенных изменений."
-   },
-   "lang_input": {
-      "message": "Настройка Голосового Управления"
-   },
-   "lang_stt": {
-      "message": "Включить перевод речи в текст."
-   },
-   "lang_paypal": {
-      "message": "Пожертвования"
-   },
-   "lang_showpaypal": {
-      "message": "Показывать кнопку PayPal."
-   },
-   "paypalinfo": {
-      "message": "SpeakIt! абсолютно бесплатен, но если вы хотите, то можете поддержать развитие проекта сделав небольшое пожертвование. <br/><b>Заранее спасибо!</b><div id='paypal'></div>"
-   },
-   "lang_save": {
-      "message": "Сохранить"
-   },
-   "tip": {
-      "message": "Все настройки успешно сохранены."
+   "lang_donate": {
+      "message": "Сделать Пожертвование"
    },
    "lang_engine": {
       "message": "Голосовой движок"
    },
-   "lang_rate": {
-      "message": "Скорость голоса"
-   },
-   "lang_pitch": {
-      "message": "Высота голоса"
-   },
    "lang_enqueue": {
-      "message": "Последовательное воспроизведение нескольких выделенных строк"
-   },
-   "lang_voices": {
-      "message": "Хотите другие голоса?"
-   },
-   "lang_testing": {
-      "message": "Проверка"
+      "message": "Включить режим очередности"
    },
    "lang_error": {
       "message": "Ничего не слышите? Нажмите здесь!"
    },
-   "lang_donate": {
-      "message": "Сделать Пожертвование"
+   "lang_input": {
+      "message": "Настройка Голосового Управления"
+   },
+   "lang_keyboard": {
+      "message": "Горячая Клавиша:"
+   },
+   "lang_options": {
+      "message": "SpeakIt! - Настройки"
+   },
+   "lang_paypal": {
+      "message": "Пожертвования"
+   },
+   "lang_pitch": {
+      "message": "Высота голоса"
+   },
+   "lang_playback": {
+      "message": "Настройка Воспроизведения"
+   },
+   "lang_rate": {
+      "message": "Скорость голоса"
+   },
+   "lang_save": {
+      "message": "Сохранить"
+   },
+   "lang_shortcuts": {
+      "message": "Настройка Горячих Клавиш"
+   },
+   "lang_showpaypal": {
+      "message": "Показывать кнопку PayPal."
+   },
+   "lang_stt": {
+      "message": "Включить перевод речи в текст."
+   },
+   "lang_testing": {
+      "message": "Проверка"
+   },
+   "lang_testtext": {
+      "message": "Этот текст предназначен для проверки расширения для Google Chrome под названием SpeakIt"
+   },
+   "lang_voices": {
+      "message": "Хотите другие голоса?"
+   },
+   "lang_volume": {
+      "message": "Уровень Громкости"
    },
    "lang_wpm": {
       "message": "слов/мин"
    },
-   "lang_testtext": {
-      "message": "Этот текст предназначен для проверки расширения для Google Chrome под названием SpeakIt"
+   "paypalinfo": {
+      "message": "SpeakIt! абсолютно бесплатен, но если вы хотите, то можете поддержать развитие проекта сделав небольшое пожертвование. \u003Cbr/>\u003Cb>Заранее спасибо!\u003C/b>\u003Cdiv id='paypal'>\u003C/div>"
+   },
+   "tip": {
+      "message": "Все настройки успешно сохранены."
+   },
+   "title": {
+      "message": "Конвертирует текст в речь"
    }
 }

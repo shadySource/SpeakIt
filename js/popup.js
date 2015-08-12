@@ -15,12 +15,13 @@
  * -----------------------------------------------------------------------------
 */
 	var prevstate = 0,
-		status = 'pause', // audio state
+		status = 'play',
 		bg = chrome.extension.getBackgroundPage(), // get background page
 		button = document.getElementById('button'),
+		reload = document.getElementById('reload'),
 		canvas = document.getElementById('volume'),
 		error = document.getElementById('error'),
-		donate = document.getElementById('donate'),
+		logo = document.getElementById('logo'),
 		replaybtn = document.getElementById("replay"),
 		play = document.getElementById("play"),
 		options = JSON.parse(localStorage.getItem("options"));
@@ -47,9 +48,24 @@
 		bg.replayAudio();
 	}, false);
 
+	reload.addEventListener('click', function() // Audio state
+	{
+		bg.reload();
+		window.close();
+	}, false);
+
 	button.addEventListener('click', function() // Audio state
 	{
-		onClick(false);
+		if(status == 'playing')
+		{
+			bg.pauseAudio();
+			status = 'paused';
+		}
+		else
+		{
+			status = 'playing';
+		}
+		onClick(status);
 	}, false);
 	
 	error.addEventListener('click', function()
@@ -58,10 +74,10 @@
 		chrome.tabs.create({url: 'http://goo.gl/OOVgp'});
 	}, false);
 	
-	donate.addEventListener('click', function()
+	logo.addEventListener('click', function()
 	{
-		// redirect's to paypal donation page all donations are welcomed :) :)
-		chrome.tabs.create({url: 'http://goo.gl/zACwV'});		
+		// redirect's to iSpeech SpeakIt page
+		chrome.tabs.create({url: 'http://www.ispeech.org/webapps/speakit'});		
 	});
 	
 /*
@@ -69,17 +85,16 @@
  * Manipulating onClick button event
  * -----------------------------------------------------------------------------
 */
-function onClick(replay) 
+function onClick(state) 
 {
 	var zen = document.getElementById("zen");
 	var circle = document.getElementById("circle");
 	var playbtn = document.getElementById("play");
 	
-	if(replay)
+	if(state == 'replay')
 	{
 		replaybtn.style.display = "block";
 		playbtn.style.display = "none";
-		status = "replay";
 		circle.className = "circle rotate";
 		zen.className = "replay";
 	}
@@ -87,10 +102,9 @@ function onClick(replay)
 	{
 		playbtn.style.display = "block";
 		replaybtn.style.display = "none";
-		
-		if(status != "play")
+
+		if(state == "playing" )
 		{
-			status = "play";
 			circle.className = "circle rotate";
 			zen.className = "play";
 		}
@@ -98,10 +112,11 @@ function onClick(replay)
 		{
 			circle.className = "circle"
 			zen.className = "";
-			status = "pause";
-			bg.pauseAudio();
 		}
 	}
+
+	status = state;
+	bg.log('State: '+state);
 };
 
 /*
@@ -130,12 +145,12 @@ function showError()
 
 /*
  * -----------------------------------------------------------------------------
- * Function for showing replay button
+ * Recieve audio state 
  * -----------------------------------------------------------------------------
 */
-function showReplay()
+function sendState(state)
 {
-	onClick(true);
+	onClick(state);
 }
 
 /*
@@ -145,14 +160,13 @@ function showReplay()
 */
 function drawVolume(volume)
 {
-	var radius = 58;
+	var radius = 63;
 	canvas.width = canvas.width; // clear canvas and preppare for new drawing
 	var context = canvas.getContext('2d');
 	var canvas_size = [canvas.width, canvas.height];
 	var center = [canvas_size[0]/2, canvas_size[1]/2];
 	
-	context.beginPath();
-	context.moveTo(center[0], center[1]); // center of the pie
+	
 	
 	context.arc // draw volume
 	(  
@@ -164,13 +178,14 @@ function drawVolume(volume)
 		false
     );
 
-    context.lineTo(center[0], center[1]); // line back to the center
-    context.closePath();
-    var rad = context.createRadialGradient(center[0], center[1], 50, center[0], center[1], 60);
-    rad.addColorStop(0, '#669933');
-    rad.addColorStop(1, '#99CC00');
-    context.fillStyle = rad;
-    context.fill();
+   
+    var rad = context.createRadialGradient(center[0], center[1], 50, center[0], center[1], 50);
+    rad.addColorStop(0, '#CC7200');
+    rad.addColorStop(1, '#FFAF22');
+    
+	context.lineWidth   = 8;
+	context.strokeStyle = '#FF8F00';
+	context.stroke();
 }
 
 /*
@@ -211,11 +226,11 @@ function calculateVolume(x,y)
  * Display donations button if it's not disabled from options
  * -----------------------------------------------------------------------------
 */
-function showDonations()
+function showLogo()
 {
-	if(options.donate)
+	if(options.logo)
 	{
-		donate.style.display = "block";		
+		logo.style.display = "block";		
 	}
 }
 
@@ -224,7 +239,7 @@ function showDonations()
  * Initalization on main and background functions
  * -----------------------------------------------------------------------------
 */
-	showDonations();
+	showLogo();
 	bg.getSelection(); // invoke SpeakIt main function
-	if(!bg.getState()) { onClick(false); }
+	sendState(bg.getState());
 	drawVolume(options.volume);

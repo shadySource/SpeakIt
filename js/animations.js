@@ -41,7 +41,7 @@ function animateFlip()
 
 	if (rotation <= 1)
 	{
-		setTimeout("animateFlip()", animationSpeed);
+		setTimeout(animateFlip, animationSpeed);
 	} 
 }
 
