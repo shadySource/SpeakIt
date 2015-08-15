@@ -10,8 +10,6 @@ SpeakIt reads selected text using Google TTS (Text-to-Speech) with language auto
 ![SpeakIt 0.2.1 alpha](https://github.com/skechboy/SpeakIt/blob/master/gallery/speakit_2.jpg?raw=true)
 ![SpeakIt 0.2.1 alpha](https://github.com/skechboy/SpeakIt/blob/master/gallery/speakit_3.jpg?raw=true)
 
-### Warning: Alpha version, still under development. Bugs are expected.
-
 ## Some cool features
 
 * Speech Input since version 0.2.1
