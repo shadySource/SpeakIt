@@ -25,8 +25,8 @@
 		datastack = [],
 		textstack = '',
 		ispeech_api_key = '59e482ac28dd52db23a22aff4ac1d31e',
-		google_tts = 'http://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=100&textlen=100&prev=input&tl=',
-		ispeech_tts = 'http://api.ispeech.org/api/rest?format=mp3&action=convert&apikey=',
+		google_tts = 'https://translate.google.com/translate_tts?ie=UTF-8&total=1&idx=100&textlen=100&prev=input&tl=',
+		ispeech_tts = 'https://api.ispeech.org/api/rest?format=mp3&action=convert&apikey=',
 		options = JSON.parse(localStorage.getItem("options"));
 /*
  * ---------------------------------------------------------------------------------------------------------------------
