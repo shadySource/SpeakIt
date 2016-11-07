@@ -489,7 +489,7 @@
 	{
 		options = JSON.parse(localStorage.getItem("options"));
 		
-		if(debug) console.log(utterance);
+		console.log(utterance);
 		
 		if(rp_state)
 		{
