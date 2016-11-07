@@ -548,8 +548,8 @@
 	    str = [],
 	    tmpstr =[],
 	    maxlength = 90, // Max length of one sentence this is Google's fault :)
-	    badchars = ["+","#","@","-","<",">","\n","!","?",":","&",'"',"  ","。"],
-	    replaces = [" plus "," sharp "," at ","","","","",".",".","."," and "," "," ","."];
+	    badchars = ["+","#","@","-","<",">","\n","!","?",":","&",'"',"  ","。","‘","’"],
+	    replaces = [" plus "," sharp "," at ","","","","",".",".","."," and "," "," ",".","'","'"];
 			
 	    for(var i in badchars) // replacing bad chars
 	    {
