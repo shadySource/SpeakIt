@@ -496,7 +496,7 @@
 		{
 			nowPlaying();	
 		}
-		utterance = utterance.split("."); // split at the periods
+		utterance = smartBreak(utterance); // split at the periods
 		state = 'playing';
 		recur_speak(utterance, 0); //function that can be called recursively
 	}
@@ -601,6 +601,53 @@
 	        }
 	    }
 	    return tmpstr.filter(String);
+	}
+
+	function smartSplit(string, maxlength) {
+	    var result = [];
+	    (function (string) {
+	        var index = string.substring(maxlength).indexOf(" ");
+	        if (index == -1) return string ? result.push(string) : null;
+	        result.push(string.substring(0, index + maxlength + 1).trim());
+	        arguments.callee.call(window, string.substring(index + maxlength + 1));
+	    })(string);
+	    return result;
+	}
+
+	function smartBreak(text) {
+	    var j = 0,
+	    str = [],
+	    tmpstr = [],
+	    maxlength = 200; // Max length of one sentence this is Google's fault
+
+	    str = text.split(/([.!?:])/i); // this is where magic happens
+
+	    for (var i in str) //join and group sentences
+	    {
+	        if (tmpstr[j] === undefined) {
+	            tmpstr[j] = '';
+	        }
+
+	        if ((tmpstr[j] + str[i]).length < maxlength) {
+	            tmpstr[j] = tmpstr[j] + str[i];
+	        }
+	        else {
+	            tmpstr[j] = beautify(tmpstr[j]);
+
+	            if (str[i].length < maxlength) {
+	                j++;
+	                tmpstr[j] = beautify(str[i]);
+	            }
+	            else {
+	                sstr = smartSplit(str[i], maxlength);
+	                for (x in sstr) {
+	                    j++;
+	                    tmpstr[j] = beautify(sstr[x]);
+	                }
+	            }
+	        }
+	    }
+	    return tmpstr;
 	}
 
 /*
