@@ -490,19 +490,18 @@
 
 		options = JSON.parse(localStorage.getItem("options"));
 		
-		console.log(utterance);
+		if(debug) console.log(utterance);
 		
 		if(rp_state)
 		{
 			nowPlaying();	
 		}
-		utterance = utterance.split(".");
-		var i = 0;
+		utterance = utterance.split("."); // split at the periods
 		state = 'playing';
-		real_speak(utterance, i);
+		recur_speak(utterance, 0); //function that can be called recursively
 	}
 
-	function real_speak(utterance, i)
+	function recur_speak(utterance, i)
 	{
 	    chrome.tts.speak
 		(
@@ -527,7 +526,6 @@
 			    }
 			}
 		);
-	    return 0;
 	}
 
 /*
