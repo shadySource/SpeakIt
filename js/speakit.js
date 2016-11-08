@@ -487,6 +487,7 @@
 */	
 	function TTS_Speak(utterance,rp_state)
 	{
+
 		options = JSON.parse(localStorage.getItem("options"));
 		
 		if(debug) console.log(utterance);
@@ -495,28 +496,38 @@
 		{
 			nowPlaying();	
 		}
-
+		utterance = utterance.split("."); // split at the periods
 		state = 'playing';
-		chrome.tts.speak
+		recur_speak(utterance, 0); //function that can be called recursively
+	}
+
+	function recur_speak(utterance, i)
+	{
+	    chrome.tts.speak
 		(
-			utterance,
+			utterance[i],
 			{
-				voiceName: options.voice,
-				enqueue: Boolean(options.enqueue),
+			    voiceName: options.voice,
+			    enqueue: Boolean(options.enqueue),
 			    rate: parseFloat(options.rate),
-				pitch: parseFloat(options.pitch),
-				volume: parseFloat(options.volume),
-				
-				onEvent: function(event)
-				{
-					if(debug) console.log('Event '+event.type+' at position '+event.charIndex);
-					if (event.type == 'end')
-					{
-						showReplay();
-					}
-				}						
+			    pitch: parseFloat(options.pitch),
+			    volume: parseFloat(options.volume),
+
+			    onEvent: function (event)
+			    {
+			        if (debug) console.log('Event ' + event.type + ' at position ' + event.charIndex);
+			        if (event.type == 'interrupted')
+			            showReplay();
+			        if (event.type == 'end')
+			        {
+                        if (++i < utterance.length)
+                            recur_speak(utterance, i)
+                        else
+                            showReplay();
+			        }
+			    }
 			}
-		);	
+		);
 	}
 
 /*
