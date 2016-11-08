@@ -19,7 +19,7 @@
 		audio = [],
 		volume = 0;
 		current = 0,
-		debug = false, // make this true if you want to debug SpeakIt
+		debug = true, // make this true if you want to debug SpeakIt
 		state = 'ready', // curent playing state (playing OR paused)
 		reloaded = [],
 		datastack = [],
@@ -487,6 +487,7 @@
 */	
 	function TTS_Speak(utterance,rp_state)
 	{
+
 		options = JSON.parse(localStorage.getItem("options"));
 		
 		console.log(utterance);
@@ -495,28 +496,38 @@
 		{
 			nowPlaying();	
 		}
-
+		utterance = utterance.split(".");
+		var i = 0;
 		state = 'playing';
-		chrome.tts.speak
+		real_speak(utterance, i);
+	}
+
+	function real_speak(utterance, i)
+	{
+	    chrome.tts.speak
 		(
-			utterance,
+			utterance[i],
 			{
-				voiceName: options.voice,
-				enqueue: Boolean(options.enqueue),
+			    voiceName: options.voice,
+			    enqueue: Boolean(options.enqueue),
 			    rate: parseFloat(options.rate),
-				pitch: parseFloat(options.pitch),
-				volume: parseFloat(options.volume),
-				
-				onEvent: function(event)
-				{
-					if(debug) console.log('Event '+event.type+' at position '+event.charIndex);
-					if (event.type == 'end')
-					{
-						showReplay();
-					}
-				}						
+			    pitch: parseFloat(options.pitch),
+			    volume: parseFloat(options.volume),
+
+			    onEvent: function (event)
+			    {
+			        if (debug) console.log('Event ' + event.type + ' at position ' + event.charIndex);
+			        if (event.type == 'end')
+			        {
+                        if (++i < utterance.length)
+                            real_speak(utterance, i)
+                        else
+                            showReplay();
+			        }
+			    }
 			}
-		);	
+		);
+	    return 0;
 	}
 
 /*
