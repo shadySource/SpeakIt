@@ -19,7 +19,7 @@
 		audio = [],
 		volume = 0;
 		current = 0,
-		debug = true, // make this true if you want to debug SpeakIt
+		debug = false, // make this true if you want to debug SpeakIt
 		state = 'ready', // curent playing state (playing OR paused)
 		reloaded = [],
 		datastack = [],
@@ -516,10 +516,12 @@
 			    onEvent: function (event)
 			    {
 			        if (debug) console.log('Event ' + event.type + ' at position ' + event.charIndex);
+			        if (event.type == 'interrupted')
+			            showReplay();
 			        if (event.type == 'end')
 			        {
                         if (++i < utterance.length)
-                            real_speak(utterance, i)
+                            recur_speak(utterance, i)
                         else
                             showReplay();
 			        }
